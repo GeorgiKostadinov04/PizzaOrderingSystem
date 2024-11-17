@@ -1,3 +1,7 @@
+package interfaces;
+
+import pizzaorder.Order;
+
 public interface IDeliveryPerson {
     String getName();
 

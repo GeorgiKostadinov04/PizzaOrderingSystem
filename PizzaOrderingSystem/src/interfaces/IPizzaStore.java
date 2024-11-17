@@ -1,5 +1,13 @@
+package interfaces;
+
+import customexceptions.ProductAlreadyExistsException;
+import customexceptions.ProductNotFoundException;
+import customexceptions.UserAlreadyExistsException;
+import pizzaorder.Order;
+import pizzaorder.Product;
+import pizzaorder.User;
+
 public interface IPizzaStore {
-    void addProduct(Product product) throws ProductAlreadyExistsException;
 
     void displayActiveProducts();
 

@@ -1,4 +1,8 @@
-public class DeliveryPerson implements IDeliveryPerson{
+package pizzaorder;
+
+import interfaces.IDeliveryPerson;
+
+public class DeliveryPerson implements IDeliveryPerson {
     private String name;
 
     public DeliveryPerson(String name){

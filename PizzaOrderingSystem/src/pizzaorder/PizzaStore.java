@@ -1,17 +1,26 @@
+package pizzaorder;
+
+import customexceptions.InvalidLoginException;
+import customexceptions.ProductAlreadyExistsException;
+import customexceptions.ProductNotFoundException;
+import customexceptions.UserAlreadyExistsException;
+import handlers.JSONHandler;
+import interfaces.IPizzaStore;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class PizzaStore implements IPizzaStore{
-    private List<Product> productList;
+public class PizzaStore implements IPizzaStore {
+    private Menu menu;
     private List<Order> currentOrders;
     private List<Order> completedOrders;
     private List<User> users;
     private User loggedInUser;
 
     public PizzaStore(){
-        productList = new ArrayList<>();
+        menu.populateMenu();
         currentOrders = new ArrayList<>();
         completedOrders = new ArrayList<>();
         users = new ArrayList<>();
@@ -38,25 +47,13 @@ public class PizzaStore implements IPizzaStore{
         this.completedOrders = orders;
     }
 
-
-    @Override
-    public void addProduct(Product product) throws ProductAlreadyExistsException {
-        for(Product existingProduct : productList){
-            if(existingProduct.getName().equals(product.getName())){
-                throw new ProductAlreadyExistsException("Product already exists: " +product.getName());
-            }
-        }
-        productList.add(product);
-    }
-
     @Override
     public void displayActiveProducts() {
         System.out.println("Active products:");
-        for(Product product : productList){
-            if(product.isActive()){
-                System.out.println("- " + product.getName()+ ": " + product.getPrice() + " BGN.");
+        for(Product product : menu.getAvailableProducts())
+            if (product.isActive()) {
+                System.out.println("- " + product.getName() + ": " + product.getPrice() + " BGN.");
             }
-        }
     }
 
     @Override
@@ -73,7 +70,7 @@ public class PizzaStore implements IPizzaStore{
     }
 
     public Product getProductByName(String name) throws ProductNotFoundException {
-        for(Product product : productList){
+        for(Product product : menu.getAvailableProducts()){
             if(product.getName().equals(name)){
                 return product;
             }
@@ -136,7 +133,7 @@ public class PizzaStore implements IPizzaStore{
 
     }
 
-    public void registerUser(User user) throws UserAlreadyExistsException{
+    public void registerUser(User user) throws UserAlreadyExistsException {
         for (User existingUser : users) {
             if (existingUser.getUsername().equals(user.getUsername())) {
                 throw new UserAlreadyExistsException("User already exists: " + user.getUsername());

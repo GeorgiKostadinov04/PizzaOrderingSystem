@@ -1,4 +1,6 @@
-public class Customer extends User{
+package pizzaorder;
+
+public class Customer extends User {
     private String address;
 
     public Customer(String username, String password,String address){

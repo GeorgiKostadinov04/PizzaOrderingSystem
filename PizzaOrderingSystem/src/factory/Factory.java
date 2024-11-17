@@ -1,11 +1,19 @@
+package factory;
+
+import pizzaorder.Customer;
+import pizzaorder.Drink;
+import pizzaorder.Employee;
+import pizzaorder.Pizza;
+
 import java.util.Random;
+
 
 public class Factory {
 
     public static Pizza generatePizza(){
         String[] pizzaNames = new String[] {
-                "Margherita", "Pepperoni", "Hawaiian", "Veggie Pizza",
-                "Neapolitan", "BBQ Chicken Pizza", "Seafood Pizza"
+                "Margherita", "Pepperoni", "Hawaiian", "Veggie pizzaorder.Pizza",
+                "Neapolitan", "BBQ Chicken pizzaorder.Pizza", "Seafood pizzaorder.Pizza"
         };
 
         double[] pizzaPrices = new double[] {10.99, 15.99, 9.99, 13.99, 12.99, 19.99};

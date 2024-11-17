@@ -1,3 +1,5 @@
+package pizzaorder;
+
 public class Pizza extends Product {
 
     public Pizza(String name, double price){
