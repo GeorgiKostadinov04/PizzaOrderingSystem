@@ -1,8 +1,6 @@
-import pizzaorder.Menu;
-import pizzaorder.Order;
-import pizzaorder.Product;
-import pizzaorder.User;
+import pizzaorder.*;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +10,21 @@ public class Main {
     public static void main(String[] args) {
         Menu menu = new Menu();
         Scanner scanner = new Scanner(System.in);
-        User user = new User("Georgi", "12324412");
-        user.setPassword("ilovemydog");
-        user.checkPassword("ilovemydog");
-        Order order = new Order(user,menu.getAvailableProducts());
+        Console console = System.console();
+        if(console == null){
+            System.out.println("No console available");
+            return;
+        }
+
+        String username = console.readLine("Enter username: ");
+        char[] password = console.readPassword("Enter password: ");
+
+        Customer customer = new Customer(username, password, "bul. Malinov");
+        if(customer.checkPassword(("Password").toCharArray())){
+            System.out.println("Right password");
+        }
+        Order order = new Order(customer);
+
 
         System.out.println("Welcome to the Pizza Ordering System!");
 
@@ -30,7 +39,6 @@ public class Main {
             } else if (choice > 0 && choice <= menu.getAvailableProducts().size()) {
                 Product selectedProduct = menu.getAvailableProducts().get(choice - 1);
                 order.addProduct(selectedProduct);
-                System.out.println("Added " + selectedProduct.getName() + " to your order.");
             } else {
                 System.out.println("Invalid choice. Please try again.");
             }

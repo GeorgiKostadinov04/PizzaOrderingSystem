@@ -144,7 +144,7 @@ public class PizzaStore implements IPizzaStore {
 
     }
 
-    public boolean login(String username, String password){
+    public boolean login(String username, char[] password){
         try{
             for (User user : users){
                 if(user.login(username,password)){

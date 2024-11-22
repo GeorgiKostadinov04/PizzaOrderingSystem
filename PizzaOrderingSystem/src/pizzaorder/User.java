@@ -11,7 +11,7 @@ public class User {
     private String salt;
     private String hashedPassword;
 
-    public User(String username, String password){
+    public User(String username, char[] password){
         this.username = username;
         this.salt = generateSalt();
         this.hashedPassword = hashPassword(password, this.salt);
@@ -23,7 +23,7 @@ public class User {
 
 
 
-    public boolean login(String username, String password) throws InvalidLoginException{
+    public boolean login(String username, char[] password) throws InvalidLoginException{
         if(getUsername().equals(username) && checkPassword(password)){
             System.out.println("Login successful! Hello " + getUsername());
             return true;
@@ -37,12 +37,12 @@ public class User {
         System.out.println(getUsername() + " has logged out.");
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.salt = generateSalt();
         this.hashedPassword = hashPassword(password, this.salt);
     }
 
-    public boolean checkPassword(String password) {
+    public boolean checkPassword(char[] password) {
         return hashPassword(password, this.salt).equals(this.hashedPassword);
     }
 
@@ -57,11 +57,22 @@ public class User {
         return sb.toString();
     }
 
-    private String hashPassword(String password, String salt) {
+    private String hashPassword(char[] password, String salt) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt.getBytes());
-            byte[] hashedBytes = md.digest(password.getBytes());
+
+
+            byte[] saltBytes = salt.getBytes();
+            byte[] passwordBytes = new String(password).getBytes();
+            byte[] combined = new byte[saltBytes.length + passwordBytes.length];
+
+            System.arraycopy(saltBytes, 0, combined, 0, saltBytes.length);
+            System.arraycopy(passwordBytes, 0, combined, saltBytes.length, passwordBytes.length);
+
+            // Hash the combined salt and password
+            byte[] hashedBytes = md.digest(combined);
+
+            // Convert to hexadecimal string
             StringBuilder sb = new StringBuilder();
             for (byte b : hashedBytes) {
                 sb.append(String.format("%02x", b));

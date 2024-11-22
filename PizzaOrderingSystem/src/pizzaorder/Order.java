@@ -19,6 +19,13 @@ public class Order {
         this.status = OrderStatus.CURRENT;
     }
 
+    public Order(User customer){
+        this.orderId = ++idCounter;
+        this.products = new ArrayList<>();
+        this.customer = customer;
+        this.status = OrderStatus.CURRENT;
+    }
+
     public Order(Order originalOrder) {
         this.orderId = ++idCounter;
         this.customer = originalOrder.customer;

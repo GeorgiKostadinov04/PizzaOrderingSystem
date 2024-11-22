@@ -65,7 +65,7 @@ public class Factory {
         int secondRandomIndex = random.nextInt(customerPasswords.length);
         int thirdRandomIndex = random.nextInt(customerAddresses.length);
 
-        return new Customer(customerUsernames[firstRandomIndex], customerPasswords[secondRandomIndex],  customerAddresses[thirdRandomIndex]);
+        return new Customer(customerUsernames[firstRandomIndex], customerPasswords[secondRandomIndex].toCharArray(),  customerAddresses[thirdRandomIndex]);
 
     }
 
@@ -88,7 +88,7 @@ public class Factory {
         int secondRandomIndex = random.nextInt(employeePasswords.length);
 
 
-        return new Employee(employeeUsernames[firstRandomIndex], employeePasswords[secondRandomIndex]);
+        return new Employee(employeeUsernames[firstRandomIndex], employeePasswords[secondRandomIndex].toCharArray());
     }
 
 

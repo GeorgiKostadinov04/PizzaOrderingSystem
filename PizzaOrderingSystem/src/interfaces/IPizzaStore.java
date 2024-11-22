@@ -25,7 +25,7 @@ public interface IPizzaStore {
 
     void registerUser(User user) throws UserAlreadyExistsException;
 
-    boolean login(String username, String password);
+    boolean login(String username, char[] password);
 
     void logout();
 }

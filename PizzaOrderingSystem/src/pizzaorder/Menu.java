@@ -28,7 +28,7 @@ public class Menu {
         System.out.println("Menu:");
         for (int i = 0; i < availableProducts.size(); i++) {
             Product product = availableProducts.get(i);
-            System.out.printf("%d. %s (%s) - $%.2f - Toppings: %s%n",
+            System.out.printf("%d. %s %s leva ",
                     i + 1, product.getName(), product.getPrice());
         }
     }
